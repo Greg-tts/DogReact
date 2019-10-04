@@ -20,15 +20,29 @@ class DogForm extends React.Component{
   onAgeInput=(e)=>{
     this.setState({age: e.target.value});
   }
+  handleClick=()=>{
 
+    fetch('http://localhost:8080/dog', {
+      method: 'post',
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        name:this.state.name, 
+        breed: this.state.breed, 
+        age:this.state.age
+      })
+    }).then(()=>{
+      this.props.getDataFromAPI();
+    })
+  }
   render(){
-    console.log(this.state.name, this.state.breed, this.state.age);
     return(
       <div>
-        <input onInput={this.onNameInput} placeholder="Name of dog"/>
-        <input onInput={this.onBreedInput} placeholder="Breed of dog"/>
-        <input onInput={this.onAgeInput} placeholder="Age of dog"/>
-        <button>Submit Dog</button>
+        <input type="text" onInput={this.onNameInput} placeholder="Name of dog"/>
+        <input type="text" onInput={this.onBreedInput} placeholder="Breed of dog"/>
+        <input type="number" onInput={this.onAgeInput} placeholder="Age of dog"/>
+        <button onClick={this.handleClick}>Submit Dog</button>
       </div>
     )
   }
@@ -42,12 +56,17 @@ class App extends React.Component{
       dogs:[]
     }
   }
-  componentDidMount(){
+
+  getDataFromAPI=()=>{
     fetch("http://localhost:8080/dogs")
     .then((res) => res.json())
     .then((response)=>{
       this.setState({dogs:response});
     });
+  }
+
+  componentDidMount(){
+    this.getDataFromAPI();
   }
   render(){
     let dogElementArr = this.state.dogs.map((dog)=>{
@@ -57,7 +76,7 @@ class App extends React.Component{
     return (
       <div>
         <div>{dogElementArr}</div>
-        <DogForm />
+        <DogForm getDataFromAPI={this.getDataFromAPI} />
       </div>
     );
   }
