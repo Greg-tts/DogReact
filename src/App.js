@@ -7,9 +7,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 class DogApp extends React.Component{
   constructor(){
     super()
-    this.state = {
-      dogs:[]
-    }
+    this.state = {}
   }
   dogHandleClick=(id)=>{
     fetch('http://localhost:8080/dog/' + id, {
@@ -18,12 +16,8 @@ class DogApp extends React.Component{
       this.props.getDataFromAPI();
     })
   }
-
-  componentDidMount(){
-    this.props.getDataFromAPI();
-  }
   render(){
-    let dogElementArr = this.state.dogs.map((dog)=>{
+    let dogElementArr = this.props.dogs.map((dog)=>{
       return(
         <div key={dog.id}>
           Name: {dog.name}, 
@@ -33,7 +27,6 @@ class DogApp extends React.Component{
         </div>
       ) 
     })
-
     return (
       <div>
         <div>{dogElementArr}</div>
@@ -66,6 +59,9 @@ class App extends React.Component{
       this.setState({dogs:response});
     });
   }
+  componentDidMount(){
+    this.getDataFromAPI();
+  }
   render(){
     return (
       <Router>
@@ -91,7 +87,7 @@ class App extends React.Component{
               <Users />
             </Route>
             <Route exact path="/">
-              <DogApp getDataFromAPI={this.getDataFromAPI}/>
+              <DogApp getDataFromAPI={this.getDataFromAPI} dogs={this.state.dogs}/>
             </Route>
           </Switch>
         </div>
