@@ -6,7 +6,7 @@ class DogForm extends React.Component{
     this.state={
       name:"",
       breed:"",
-      age:0
+      age:null
     }
   }
   onNameInput=(e)=>{
@@ -19,7 +19,6 @@ class DogForm extends React.Component{
     this.setState({age: e.target.value});
   }
   handleClick=()=>{
-
     fetch('http://localhost:8080/dog', {
       method: 'post',
       headers: {
@@ -32,14 +31,15 @@ class DogForm extends React.Component{
       })
     }).then(()=>{
       this.props.getDataFromAPI();
+      this.setState({name:"",breed:"",age:0});
     })
   }
   render(){
     return(
       <div>
-        <input type="text" onInput={this.onNameInput} placeholder="Name of dog"/>
-        <input type="text" onInput={this.onBreedInput} placeholder="Breed of dog"/>
-        <input type="number" onInput={this.onAgeInput} placeholder="Age of dog"/>
+        <input type="text" value={this.state.name} onInput={this.onNameInput} placeholder="Name of dog"/>
+        <input type="text" value={this.state.breed} onInput={this.onBreedInput} placeholder="Breed of dog"/>
+        <input value={this.state.age} onInput={this.onAgeInput} placeholder="Age of dog"/>
         <button onClick={this.handleClick}>Submit Dog</button>
       </div>
     )

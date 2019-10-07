@@ -1,32 +1,26 @@
 import React from 'react';
 import './App.css';
 import DogForm from './components/DogForm';
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
-class App extends React.Component{
+
+class DogApp extends React.Component{
   constructor(){
     super()
     this.state = {
       dogs:[]
     }
   }
-
-  getDataFromAPI=()=>{
-    fetch("http://localhost:8080/dogs")
-    .then((res) => res.json())
-    .then((response)=>{
-      this.setState({dogs:response});
-    });
-  }
   dogHandleClick=(id)=>{
     fetch('http://localhost:8080/dog/' + id, {
       method: 'delete',
     }).then(()=>{
-      this.getDataFromAPI();
+      this.props.getDataFromAPI();
     })
   }
 
   componentDidMount(){
-    this.getDataFromAPI();
+    this.props.getDataFromAPI();
   }
   render(){
     let dogElementArr = this.state.dogs.map((dog)=>{
@@ -43,10 +37,68 @@ class App extends React.Component{
     return (
       <div>
         <div>{dogElementArr}</div>
-        <DogForm getDataFromAPI={this.getDataFromAPI} />
+        <DogForm getDataFromAPI={this.props.getDataFromAPI} />
       </div>
     );
   }
 }
+
+
+const About=()=>{
+  return <h2>About</h2>;
+}
+
+const Users=()=>{
+  return <h2>Users</h2>;
+}
+
+class App extends React.Component{
+  constructor(){
+    super()
+    this.state = {
+      dogs:[]
+    }
+  }
+  getDataFromAPI=()=>{
+    fetch("http://localhost:8080/dogs")
+    .then((res) => res.json())
+    .then((response)=>{
+      this.setState({dogs:response});
+    });
+  }
+  render(){
+    return (
+      <Router>
+        <div>
+          <nav>
+            <ul>
+              <li>
+                <Link to="/">Home</Link>
+              </li>
+              <li>
+                <Link to="/about">About</Link>
+              </li>
+              <li>
+                <Link to="/users">Users</Link>
+              </li>
+            </ul>
+          </nav>
+          <Switch>
+            <Route path="/about">
+              <About />
+            </Route>
+            <Route path="/users">
+              <Users />
+            </Route>
+            <Route exact path="/">
+              <DogApp getDataFromAPI={this.getDataFromAPI}/>
+            </Route>
+          </Switch>
+        </div>
+      </Router>
+    );
+  }
+}
+
 
 export default App;
