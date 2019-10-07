@@ -5,10 +5,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 
 class DogApp extends React.Component{
-  constructor(){
-    super()
-    this.state = {}
-  }
+
   dogHandleClick=(id)=>{
     fetch('http://localhost:8080/dog/' + id, {
       method: 'delete',
@@ -30,7 +27,6 @@ class DogApp extends React.Component{
     return (
       <div>
         <div>{dogElementArr}</div>
-        <DogForm getDataFromAPI={this.props.getDataFromAPI} />
       </div>
     );
   }
@@ -69,13 +65,13 @@ class App extends React.Component{
           <nav>
             <ul>
               <li>
-                <Link to="/">Home</Link>
+                <Link to="/">Show Dogs</Link>
               </li>
               <li>
                 <Link to="/about">About</Link>
               </li>
               <li>
-                <Link to="/users">Users</Link>
+                <Link to="/create">Create Dog</Link>
               </li>
             </ul>
           </nav>
@@ -83,8 +79,8 @@ class App extends React.Component{
             <Route path="/about">
               <About />
             </Route>
-            <Route path="/users">
-              <Users />
+            <Route path="/create">
+              <DogForm getDataFromAPI={this.getDataFromAPI} />
             </Route>
             <Route exact path="/">
               <DogApp getDataFromAPI={this.getDataFromAPI} dogs={this.state.dogs}/>

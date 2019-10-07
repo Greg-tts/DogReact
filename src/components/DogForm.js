@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from "react-router-dom";
 
 class DogForm extends React.Component{
   constructor(){
@@ -40,7 +41,7 @@ class DogForm extends React.Component{
         <input type="text" value={this.state.name} onInput={this.onNameInput} placeholder="Name of dog"/>
         <input type="text" value={this.state.breed} onInput={this.onBreedInput} placeholder="Breed of dog"/>
         <input value={this.state.age} onInput={this.onAgeInput} placeholder="Age of dog"/>
-        <button onClick={this.handleClick}>Submit Dog</button>
+        <Link to="/"><button onClick={this.handleClick}>Submit Dog</button></Link>
       </div>
     )
   }
