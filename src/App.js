@@ -18,7 +18,11 @@ class App extends React.Component{
     });
   }
   dogHandleClick=(id)=>{
-    console.log(id);
+    fetch('http://localhost:8080/dog/' + id, {
+      method: 'delete',
+    }).then(()=>{
+      this.getDataFromAPI();
+    })
   }
 
   componentDidMount(){
