@@ -1,44 +1,11 @@
 import React from 'react';
 import './App.css';
 import DogForm from './components/DogForm';
+import ShowDogs from './components/ShowDogs';
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-
-
-class DogApp extends React.Component{
-
-  dogHandleClick=(id)=>{
-    fetch('http://localhost:8080/dog/' + id, {
-      method: 'delete',
-    }).then(()=>{
-      this.props.getDataFromAPI();
-    })
-  }
-  render(){
-    let dogElementArr = this.props.dogs.map((dog)=>{
-      return(
-        <div key={dog.id}>
-          Name: {dog.name}, 
-          Breed: {dog.breed}, 
-          Age: {dog.age}
-          <button onClick={()=>this.dogHandleClick(dog.id)}>Delete Dog</button>
-        </div>
-      ) 
-    })
-    return (
-      <div>
-        <div>{dogElementArr}</div>
-      </div>
-    );
-  }
-}
-
 
 const About=()=>{
   return <h2>About</h2>;
-}
-
-const Users=()=>{
-  return <h2>Users</h2>;
 }
 
 class App extends React.Component{
@@ -68,22 +35,22 @@ class App extends React.Component{
                 <Link to="/">Show Dogs</Link>
               </li>
               <li>
-                <Link to="/about">About</Link>
+                <Link to="/create">Create Dog</Link>
               </li>
               <li>
-                <Link to="/create">Create Dog</Link>
+                <Link to="/update">Update Dog</Link>
               </li>
             </ul>
           </nav>
           <Switch>
-            <Route path="/about">
-              <About />
+            <Route path="/update">
+              <DogForm action="update" getDataFromAPI={this.getDataFromAPI} />
             </Route>
             <Route path="/create">
-              <DogForm getDataFromAPI={this.getDataFromAPI} />
+              <DogForm action="create" getDataFromAPI={this.getDataFromAPI} />
             </Route>
             <Route exact path="/">
-              <DogApp getDataFromAPI={this.getDataFromAPI} dogs={this.state.dogs}/>
+              <ShowDogs getDataFromAPI={this.getDataFromAPI} dogs={this.state.dogs}/>
             </Route>
           </Switch>
         </div>
