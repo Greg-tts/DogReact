@@ -22,9 +22,13 @@ class ShowDogs extends React.Component{
         </Link>
       ) 
     })
+    let messageIfEmpty="";
+    if(dogElementArr.length===0){
+      messageIfEmpty = "No dogs found";
+    }
     return (
       <div>
-        <button onClick={this.deleteAllDogs}>Delete All Dogs</button>
+        {messageIfEmpty}
         <div>{dogElementArr}</div>
       </div>
     );

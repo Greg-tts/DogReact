@@ -20,3 +20,58 @@
 .App-link {
   color: #09d3ac;
 }
+
+@media only screen and (min-width: 768px) {
+
+  #show_dogs{
+  }
+  #create_dog{
+  }
+  nav ul{
+    padding:0;
+    margin: 0;
+  }
+
+  nav li{
+    list-style: none;
+    display: inline;
+  }
+  nav a{
+    text-decoration: none;
+    color:black;
+  }
+
+}
+
+
+@media only screen and (max-width: 768px) {
+  
+  #show_dogs{
+    bottom:0;
+    left:0;
+    background-color: lightblue;
+  }
+  #create_dog{
+    bottom:0;
+    right:0;
+    background-color: lightgreen;
+  }
+  nav ul{
+    padding:0;
+    margin: 0;
+  }
+
+  nav li{
+    list-style: none;
+  }
+  nav a{
+    text-decoration: none;
+    color:black;
+    width: 50%;
+    position: absolute;
+    min-height: 50px;
+    height: 10vh;
+  }
+
+}
+

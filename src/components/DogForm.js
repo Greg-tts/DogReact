@@ -55,21 +55,22 @@ class DogForm extends React.Component{
       this.setState({name:"",breed:"",age:0,id:0});
     })
   }
+  componentDidMount(){
+    let id = this.props.match ? this.props.match.params.id : 0;
+    this.setState({ id });
+  }
   render(){
-    let idInput = "";
     let buttonAction;
-    if(this.props.action === "update"){
-      idInput = <input type="number" value={this.state.id} onInput={this.onIdInput} placeholder="ID of Dog"/>
+    if( this.state.id ){
       buttonAction = <button onClick={this.handleUpdateClick}>Update Dog</button>
     } else {
       buttonAction = <button onClick={this.handleCreateClick}>Create Dog</button>
     }
     return(
       <div>
-        { idInput }
-        <input type="text" value={this.state.name} onInput={this.onNameInput} placeholder="Name of dog"/>
-        <input type="text" value={this.state.breed} onInput={this.onBreedInput} placeholder="Breed of dog"/>
-        <input type="number" value={this.state.age} onInput={this.onAgeInput} placeholder="Age of dog"/>
+        <input type="text" value={this.state.name} onChange={this.onNameInput} placeholder="Name of dog"/>
+        <input type="text" value={this.state.breed} onChange={this.onBreedInput} placeholder="Breed of dog"/>
+        <input type="number" value={this.state.age} onChange={this.onAgeInput} placeholder="Age of dog"/>
         <Link to="/">{ buttonAction }</Link>
       </div>
     )
