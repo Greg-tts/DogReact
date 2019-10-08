@@ -1,13 +1,7 @@
 import React from 'react';
+import { Link } from "react-router-dom";
 
 class ShowDogs extends React.Component{
-  dogHandleClick=(id)=>{
-    fetch('http://localhost:8080/dog/' + id, {
-      method: 'delete',
-    }).then(()=>{
-      this.props.getDataFromAPI();
-    })
-  }
   deleteAllDogs=()=>{
     fetch('http://localhost:8080/dogs/', {
       method: 'delete',
@@ -18,13 +12,14 @@ class ShowDogs extends React.Component{
   render(){
     let dogElementArr = this.props.dogs.map((dog)=>{
       return(
-        <div key={dog.id}>
-          ID: {dog.id},
-          Name: {dog.name}, 
-          Breed: {dog.breed}, 
-          Age: {dog.age}
-          <button onClick={()=>this.dogHandleClick(dog.id)}>Delete Dog</button>
-        </div>
+        <Link to={"/dog/" + dog.id} key={dog.id}>
+          <div>
+            ID: {dog.id},
+            Name: {dog.name}, 
+            Breed: {dog.breed}, 
+            Age: {dog.age}
+          </div>
+        </Link>
       ) 
     })
     return (
