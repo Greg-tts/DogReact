@@ -24,7 +24,7 @@ class DogForm extends React.Component{
     this.setState({age: e.target.value});
   }
   handleCreateClick=()=>{
-    fetch('http://localhost:8080/dog', {
+    fetch('https://vast-harbor-17269.herokuapp.com/dog', {
       method: 'post',
       headers: {
         "Content-Type": "application/json"
@@ -40,7 +40,7 @@ class DogForm extends React.Component{
     })
   }
   handleUpdateClick=()=>{
-    fetch('http://localhost:8080/dog/' + this.state.id, {
+    fetch('https://vast-harbor-17269.herokuapp.com/dog/' + this.state.id, {
       method: 'put',
       headers: {
         "Content-Type": "application/json"

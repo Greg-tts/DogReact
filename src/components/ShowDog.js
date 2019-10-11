@@ -10,14 +10,14 @@ class ShowDog extends React.Component {
   }
   componentDidMount(){
     const { id } = this.props.match.params;
-    fetch("http://localhost:8080/dog/" + id)
+    fetch("https://vast-harbor-17269.herokuapp.com/dog/" + id)
       .then((res) => res.json())
       .then((dogRes) =>{
         this.setState({dog:dogRes});
     })
   }
   dogHandleClick=(id)=>{
-    fetch('http://localhost:8080/dog/' + id, {
+    fetch('https://vast-harbor-17269.herokuapp.com/dog/' + id, {
       method: 'delete',
     }).then(()=>{
       this.props.getDataFromAPI();

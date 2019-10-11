@@ -17,7 +17,7 @@ class App extends React.Component{
     }
   }
   getDataFromAPI=()=>{
-    fetch("http://localhost:8080/dogs")
+    fetch("https://vast-harbor-17269.herokuapp.com/dogs")
     .then((res) => res.json())
     .then((response)=>{
       this.setState({dogs:response});
@@ -33,10 +33,10 @@ class App extends React.Component{
           <nav>
             <ul>
               <li>
-                <Link id="show_dogs" to="/">Show Dogs</Link>
+                <Link id="show_dogs" to="/">Home</Link>
               </li>
               <li>
-                <Link id="create_dog" to="/create">Create Dog</Link>
+                <Link id="create_dog" to="/create">Create</Link>
               </li>
             </ul>
           </nav>

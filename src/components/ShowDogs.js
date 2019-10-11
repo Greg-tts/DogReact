@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 class ShowDogs extends React.Component{
   deleteAllDogs=()=>{
-    fetch('http://localhost:8080/dogs/', {
+    fetch('https://vast-harbor-17269.herokuapp.com/dogs/', {
       method: 'delete',
     }).then(()=>{
       this.props.getDataFromAPI();
